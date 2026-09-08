@@ -9,6 +9,10 @@ function App() {
     setCourse("");
   }
 
+  function deleteC(courseToDelete) {
+    setCourses(courses.filter((c) => c !== courseToDelete));
+  }
+
   return (
     <>
       <h1>Course Manager</h1>
@@ -24,7 +28,10 @@ function App() {
       <h2>My Courses</h2>
 
       {courses.map((course) => (
-        <h3>{course}</h3>
+        <div key={course}>
+          <h3>{course}</h3>
+          <button onClick={() => deleteC(course)}>Delete</button>
+        </div>
       ))}
     </>
   );
