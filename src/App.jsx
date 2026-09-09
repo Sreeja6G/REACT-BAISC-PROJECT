@@ -31,7 +31,9 @@ function App() {
         <div key={course}>
           <h3>{course}</h3>
           <button onClick={() => deleteC(course)}>Delete</button>
+          <button onclcik="edit">Edit</button>
         </div>
+    
       ))}
     </>
   );
