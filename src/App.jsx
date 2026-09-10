@@ -5,17 +5,30 @@ function App() {
   const [courses, setCourses] = useState([]);
 
   function handleAdd() {
-    setCourses([...courses, course]);
-    setCourse("");
+    if (course) {
+      setCourses([...courses, course]);
+      setCourse("");
+    }
   }
 
-  function deleteC(courseToDelete) {
-    setCourses(courses.filter((c) => c !== courseToDelete));
+  function handleDelete(index) {
+    const newCourses = courses.filter((_, i) => i !== index);
+    setCourses(newCourses);
+  }
+
+  function edit(index) {
+    const newCourse = prompt("Enter new course", courses[index]);
+
+    if (newCourse) {
+      const newCourses = [...courses];
+      newCourses[index] = newCourse;
+      setCourses(newCourses);
+    }
   }
 
   return (
-    <>
-      <h1>Course Manager</h1>
+    <div>
+      <h1>Course List</h1>
 
       <input
         value={course}
@@ -25,17 +38,20 @@ function App() {
 
       <button onClick={handleAdd}>Add</button>
 
-      <h2>My Courses</h2>
+      {courses.map((course, index) => (
+        <div key={index}>
+          <span>{course}</span>
 
-      {courses.map((course) => (
-        <div key={course}>
-          <h3>{course}</h3>
-          <button onClick={() => deleteC(course)}>Delete</button>
-          <button onclcik="edit">Edit</button>
+          <button onClick={() => edit(index)}>
+            Edit
+          </button>
+
+          <button onClick={() => handleDelete(index)}>
+            Delete
+          </button>
         </div>
-    
       ))}
-    </>
+    </div>
   );
 }
 
